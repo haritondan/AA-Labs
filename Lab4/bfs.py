@@ -1,65 +1,53 @@
 from collections import deque
-
-import time
-start = time.time()
-
-def bfs(graph, start):
-    # initialize the queue and visited set
+from timeit import default_timer as timer
+start = timer()
+graph = {
+    '1': ['2', '3', '4'],
+    '2': ['5', '6'],
+    '3': ['7', '8'],
+    '4': ['9', '10'],
+    '5': ['11', '12'],
+    '6': [],
+    '7': [],
+    '8': [],
+    '9': [],
+    '10': [],
+    '11': [],
+    '12': []
+}
+graph2 = {
+    '1': ['2', '3', '4','5'],
+    '2': ['6', '7'],
+    '3': [],
+    '4': [],
+    '5': [],
+    '6': ['8','9'],
+    '7': ['10','11'],
+    '8': ['12'],
+    '9': [],
+    '10': [],
+    '11': [],
+    '12': ['13'],
+    '13':[]
+}
+def bfs(graph, start, target):
     queue = deque([start])
     visited = set([start])
-
     while queue:
-        # dequeue a vertex from the queue
-        vertex = queue.popleft()
-        print(vertex)
-
-        # enqueue all unvisited neighbors
-        for neighbor in graph[vertex]:
+        node = queue.popleft()
+        print(node, end=' ')
+        if node == target:
+            return True
+        for neighbor in graph[node]:
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append(neighbor)
+    return False
 
-# example graph as adjacency list
-# graph = {
-#     'A': ['B', 'C'],
-#     'B': ['D', 'E'],
-#     'C': ['F'],
-#     'D': [],
-#     'E': ['F'],
-#     'F': []
-# }
-graph = {
-    'A': ['B', 'C', 'D', 'E'],
-    'B': ['A', 'C', 'D', 'F'],
-    'C': ['A', 'B', 'D', 'E', 'F', 'G'],
-    'D': ['A', 'B', 'C', 'E', 'H'],
-    'E': ['A', 'C', 'D', 'F', 'H', 'I'],
-    'F': ['B', 'C', 'E', 'G', 'I', 'J'],
-    'G': ['C', 'F', 'H', 'J', 'K', 'L'],
-    'H': ['D', 'E', 'G', 'I', 'L'],
-    'I': ['E', 'F', 'H', 'J', 'L', 'M'],
-    'J': ['F', 'G', 'I', 'K', 'M', 'N'],
-    'K': ['G', 'J', 'L', 'N', 'O', 'P'],
-    'L': ['G', 'H', 'I', 'K', 'P'],
-    'M': ['I', 'J', 'N', 'Q'],
-    'N': ['J', 'K', 'M', 'O', 'Q', 'R'],
-    'O': ['K', 'N', 'P', 'R'],
-    'P': ['K', 'L', 'O', 'S'],
-    'Q': ['M', 'N', 'R', 'T'],
-    'R': ['N', 'O', 'Q', 'S', 'T', 'U'],
-    'S': ['P', 'R', 'U'],
-    'T': ['Q', 'R', 'U', 'V'],
-    'U': ['R', 'S', 'T', 'V'],
-    'V': ['T', 'U', 'W', 'X'],
-    'W': ['V', 'X', 'Y'],
-    'X': [],
-    'Y': [],
-    'Z': []
-}
-
-
-# start BFS from vertex 'A'
-bfs(graph, 'A')
-
-end = time.time()
+# Call the BFS function with the starting node '1' and target node '11'
+# bfs(graph, '1', '12')
+print('\n')
+bfs(graph2, '1', '12')
+print('\n')
+end = timer()
 print(end - start)
