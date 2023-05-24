@@ -45,7 +45,7 @@ def dfs(graph, node, target, visited=None):
     return False
 
 # Call the DFS function with the starting node '1' and target node '11'
-# dfs(graph, '1', '12')
+dfs(graph, '1', '6')
 print('\n')
 dfs(graph2, '1', '12')
 print('\n')
